@@ -1,57 +1,56 @@
 import os
 import xml.etree.ElementTree
 
+from src.utils import lessons, lesson01
+
+from src.text_processor import process_text
+
 
 def replace_descriptions(
-        tree: xml.etree.ElementTree.Element,
-        names: list,
+        tree: xml.etree.ElementTree.ElementTree,
+        data: dict,
         exercises: list
     ) -> None:
     """
     Update the XML tree with the given task names and task elements.
 
-    :param tree:
-    :type tree:
-    :param names:
-    :type names:
-    :param exercises:
-    :type exercises:
-    :return: nothing
-    :rtype:
-
-    :Example:
+    :param tree: an object that represents XML content.
+    :type tree: xml.etree.ElementTree.ElementTree
+    :param data: an object with tasks attributes.
+    :type data: dict
+    :param exercises: an sequence of exercise elements.
+    :type exercises: list
     """
-    # for taskname, exercise in zip(names, exercises):
-        # description = process_description(tree, taskname, exercise)
-        # update_element(select_attribute(exercise, "description"), description)
+    for task_data, exercise in zip(data.items(), exercises):
+        report = process_description(task_data, exercise)
+        print(report[:50])
 
-    # else:
-        # update_element(select_attribute(exercise, "solution"), "")
-        # update_root(tree, "test_output.xml")
-    pass
+    tree.write("output.xml", encoding="utf-8")
 
 
-def process_description(tree, name: str, exercise) -> str:
+def process_description(
+        task_data: tuple,
+        exercise: xml.etree.ElementTree.Element
+    ) -> str:
     """
     Read the content of created README.md paths. Then insert the readed text
     into the tree.
 
-    :param tree:
-    :type tree:
-    :param name:
-    :type name:
-    :param exercise:
-    :type exercise:
-    :return:
-    :rtype:
-
-    :Example:
+    :param task_data: an object with task attributes.
+    :type name: tuple
+    :param exercise: an object that represents single exercise.
+    :type exercise: xml.etree.ElementTree.Element
+    :return: an overwritten text.
+    :rtype: str
     """
-    # readme_path = select_specific_doc("../engeto_tasks/tasks", "lesson01",
-        # lesson01.get(name, "nan_task"))
-    # content = load_description(readme_path)
-    # return process_the_text(content)
-    pass
+    name = get_current_name(task_data[0], lesson01)
+    lesson_nr = get_current_lesson(task_data, lessons)
+    processed_txt = process_text(
+        read_description(
+            "../engeto_tasks/", name, lesson_nr
+        )
+    )
+    return write_description(processed_txt, exercise)
 
 
 def get_current_name(old_name: str, pattern: dict) -> str:
@@ -66,16 +65,16 @@ def get_current_name(old_name: str, pattern: dict) -> str:
     :rtype: str
 
     :Example:
-    >>> import utils.tasks_pattern as tp
-    >>> print(get_current_name("slicing_string", tp.pattern))
-    'rozdeleni_stringu'
-    >>> print(get_current_name("non_existing_t", tp.pattern))
-    'nan_task'
+    >>> pattern = {"slicing_string": "rozdeleni_stringu"}
+    >>> print(get_current_name("slicing_string", pattern))
+    rozdeleni_stringu
+    >>> print(get_current_name("non_existing_t", pattern))
+    nan_task
     """
     return pattern.get(old_name, "nan_task")
 
 
-def get_current_lesson(name: str, data: dict, pattern: dict) -> str:
+def get_current_lesson(data: tuple, pattern: dict) -> str:
     """
     Return the lesson name of the task, based on the given pattern.
 
@@ -89,18 +88,19 @@ def get_current_lesson(name: str, data: dict, pattern: dict) -> str:
     :rtype: str
 
     :Example:
-    >>> import utils.lesson_pattern.py as lp
-    >>> exerc_1 = {
-    ...    'slicing_string' : {
+    >>> lessons = {"L01": "lesson01"}
+    >>> exerc_1 = (
+    ...    'slicing_string', {
     ...         'folder': 'exercises',
     ...         'lesson': 'L01',
     ...         'path': 'exercises/L01/slicing_string/solution'
     ...     }
-    ... }
-    >>> print(get_current_lesson("slicing_string", exerc_1, lp.lessons))
-    'lesson01'
+    ... )
+    >>> print(get_current_lesson(exerc_1, lessons))
+    lesson01
     """
-    return pattern.get(data.get(name), "nan_lesson")
+    _, attrib = data
+    return pattern.get(attrib.get("lesson"), "nan_lesson")
 
 
 def read_description(pack_path: str, name: str, lesson: str) -> list:
@@ -117,8 +117,11 @@ def read_description(pack_path: str, name: str, lesson: str) -> list:
     :rtype: list
 
     :Example:
-    >>> print(read_description("rozdeleni_stringu", "lesson01")[5])
-    'V této úloze budeš pracovat s indexy datového typu 'str'.\\n'
+    >>> print(read_description(
+    ...     "../engeto_tasks", "rozdeleni_stringu", "lesson01")[5]
+    ... )
+    V této úloze budeš pracovat s indexy datového typu `str`.
+    <BLANKLINE>
     """
     try:
         with open(
@@ -134,13 +137,35 @@ def read_description(pack_path: str, name: str, lesson: str) -> list:
         return output
 
 
-def write_description():
+def write_description(
+        text: str,
+        selected_element: xml.etree.ElementTree.Element,
+        child: str = "description"
+    ) -> str:
     """
     Write a description of text inside the specific XML element.
 
+    :param text: a new task description.
+    :type text: str
+    :param selected_element: an element with task.
+    :type param: xml.etree.ElementTree.Element
+    :param child: a name of the children tag.
+    :type child:
+    :return: a content of new tag
+    :rtype: str
+
     :Example:
-    >>>
+    >>> import xml.etree.ElementTree as te
+    >>> tree = te.parse("src/tests/foo.xml")
+    >>> root = tree.getroot()
+    >>> countries = [country for country in root.iter("country")]
+    >>> print(write_description("XXXX", countries[0], "year"))
+    XXXX
     """
+    description_tag = selected_element.find(child)
+    description_tag.text = text
+    return description_tag.text
+
 
 
 if __name__ == "__main__":
