@@ -1,7 +1,7 @@
 import os
 import sys
 
-from src.processor import task_processor
+from src.task_manager.processor import task_processor
 
 
 def main():
