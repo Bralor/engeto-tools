@@ -13,17 +13,15 @@ for academy(xml, images, exercises).
 
 ---
 
-Task cleaning job:
-```bash
-from src import cleaner
-task_cleaner = TaskCleaner("<lesson_repo>", "<hub_package>")
-```
-
 Updating the description of the tasks:
-```python
-import src.processor as pr
-pr.task_processor()
-
+```bash
+>>> from src.task_manager.processor import text_processor as tp
+>>> tp.task_processor("<engeto_repository>", "<task_repository>", "<xml_source>")
+>>> task_processor(
+...     "../python-uvod-do-programovani",
+...     "../engeto_tasks",
+...     "course_python-uvod-do-programovani.xml"
+... )
 
 V této úloze budeš pracovat s indexy datového ty
 ...
