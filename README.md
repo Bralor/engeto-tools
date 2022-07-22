@@ -9,21 +9,50 @@ for academy(xml, images, exercises).
 
 ---
 
+Clone the repository:
+```
+git clone https://github.com/Bralor/engeto-tools.git
+```
+
+Go to the root folder:
+```
+cd engeto-tools
+```
+
+Create a virtual enviroment:
+```
+python -m venv env
+```
+
+Activate the enviroment:
+```
+source env/bin/activate   # unix-based
+env\Scripts\activate.bat  # windows
+```
+
+Install the package itself:
+```
+pip install .
+```
+
 ### Usage
 
 ---
 
 Updating the description of the tasks:
-```bash
->>> from src.task_manager.processor import text_processor as tp
->>> tp.task_processor("<engeto_repository>", "<task_repository>", "<xml_source>")
->>> task_processor(
+```
+>>> from src.task_manager.processor import task_processor as tp
+>>> #tp("<engeto_repo>", "<task_package>", "<xml_source_file>")
+>>> tp(
 ...     "../python-uvod-do-programovani",
-...     "../engeto_tasks",
+...     "../engeto_tasks", 
 ...     "course_python-uvod-do-programovani.xml"
 ... )
+```
 
-V této úloze budeš pracovat s indexy datového ty
-...
+Updating the elements `exercise` and their attribute values:
+```
+>>> from src.task_manager.processor import  task_attr_processor as tap
+>>> tap()
 ```
 
