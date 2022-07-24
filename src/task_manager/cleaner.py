@@ -9,6 +9,9 @@ def select_names(exercises: list, lesson: dict) -> set:
     :type exercises: list
     :return: an object with the names.
     :rtype: set
+
+    :Example:
+    >>>
     """
     new_names = set()
 
@@ -37,6 +40,9 @@ def select_attr(
     :type attr_name:
     :return:
     :rtype:
+
+    :Example:
+    >>>
     """
     solution = element.find(child)
     return solution.attrib.get(attr_name, "nan_path")
