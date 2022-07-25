@@ -13,15 +13,13 @@ def select_names(exercises: list, lesson: dict) -> set:
     :Example:
     >>>
     """
-    new_names = set()
 
-    for exercise in exercises:
-        solution = exercise.find("solution")
-        path = solution.attrib.get("sourceDir", "nan_path")
-        _, _, name , _ = path.split("/")
-        new_names.add(lesson.get(name))
-
-    return new_names
+    return {
+        split_name(
+            select_attr(exercise, "solution", "sourceDir")
+        )
+        for exercise in exercises
+    }
 
 
 def select_attr(
@@ -46,3 +44,24 @@ def select_attr(
     """
     solution = element.find(child)
     return solution.attrib.get(attr_name, "nan_path")
+
+
+def split_name(path: str) -> str:
+    """
+    Return a parsed name from the relative path.
+
+    :param path: a relative path to the file.
+    :type path: str
+    :return: a name of the task.
+    :rtype: str
+    """
+    try:
+        _, _, name , _ = path.split("/")
+
+    except BaseException:
+        output = ""
+    else:
+        output = name
+    finally:
+        return output
+
