@@ -1,3 +1,2 @@
 beautifulsoup4==4.11.1
 soupsieve==2.3.2.post1
-termcolor==1.1.0
