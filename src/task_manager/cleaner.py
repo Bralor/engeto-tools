@@ -1,7 +1,9 @@
+import os
+import shutil
 import xml.etree.ElementTree
 
 
-def select_names(exercises: list, lesson: dict) -> set:
+def select_names(exercises: list) -> set:
     """
     Return an object of task names.
 
@@ -11,7 +13,12 @@ def select_names(exercises: list, lesson: dict) -> set:
     :rtype: set
 
     :Example:
-    >>>
+    >>> import xml.etree.ElementTree as et
+    >>> tree = et.parse("src/tests/bar.xml")
+    >>> root = tree.getroot()
+    >>> exercises = [exercise for exercise in root.iter("exercise")]
+    >>> print(select_names(exercises))
+    {'string_operations', 'slicing_string'}
     """
 
     return {
@@ -40,7 +47,12 @@ def select_attr(
     :rtype:
 
     :Example:
-    >>>
+    >>> import xml.etree.ElementTree as et
+    >>> tree = et.parse("src/tests/bar.xml")
+    >>> root = tree.getroot()
+    >>> exercises = [exercise for exercise in root.iter("exercise")]
+    >>> print(select_attr(exercises[0], "solution", "sourceDir"))
+    exercises/L01/slicing_string/solution
     """
     solution = element.find(child)
     return solution.attrib.get(attr_name, "nan_path")
@@ -54,6 +66,11 @@ def split_name(path: str) -> str:
     :type path: str
     :return: a name of the task.
     :rtype: str
+
+    :Example:
+    >>> result = split_name("foo/bar/boo/bar")
+    >>> result
+    'boo'
     """
     try:
         _, _, name , _ = path.split("/")
