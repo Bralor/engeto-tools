@@ -26,7 +26,7 @@ def select_attr(
         element: xml.etree.ElementTree.Element,
         child: str,
         attr_name: str
-    ) -> str:
+        ) -> str:
     """
     Return a string from the attribute with a path.
 
@@ -56,7 +56,7 @@ def split_name(path: str) -> str:
     :rtype: str
     """
     try:
-        _, _, name , _ = path.split("/")
+        _, _, name, _ = path.split("/")
 
     except BaseException:
         output = ""
@@ -64,4 +64,3 @@ def split_name(path: str) -> str:
         output = name
     finally:
         return output
-

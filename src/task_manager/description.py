@@ -11,7 +11,7 @@ def replace_descriptions(
         data: dict,
         exercises: list,
         package: str
-    ) -> None:
+        ) -> None:
     """
     Update the XML tree with the given task names and task elements.
 
@@ -33,7 +33,7 @@ def process_description(
         task_data: tuple,
         exercise: xml.etree.ElementTree.Element,
         package: str
-    ) -> str:
+        ) -> str:
     """
     Read the content of created README.md paths. Then insert the readed text
     into the tree.
@@ -145,7 +145,7 @@ def write_description(
         text: str,
         selected_element: xml.etree.ElementTree.Element,
         child: str = "description"
-    ) -> str:
+        ) -> str:
     """
     Write a description of text inside the specific XML element.
 
@@ -169,7 +169,6 @@ def write_description(
     description_tag = selected_element.find(child)
     description_tag.text = text
     return description_tag.text
-
 
 
 if __name__ == "__main__":

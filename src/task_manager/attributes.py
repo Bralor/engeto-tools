@@ -5,7 +5,7 @@ def replace_attributes(
         tree: xml.etree.ElementTree.ElementTree,
         exercises: list,
         new_path: dict
-    ) -> None:
+        ) -> None:
     """
     Replace attributes in the given exercise elements.
 
@@ -60,7 +60,7 @@ def update_exercise(
         new_path: dict,
         attr_name: str,
         *children
-    ) -> None:
+        ) -> None:
     """
     Update all the attribute values in a single 'exercise' tag.
 
@@ -111,7 +111,7 @@ def update_attribute(
         task_element: xml.etree.ElementTree.Element,
         attr_name: str,
         attr_val: str
-    ) -> str:
+        ) -> str:
     """
     Return a selected attribute with updated value.
 
@@ -129,7 +129,7 @@ def update_attribute(
     >>> tree = te.parse("src/tests/foo.xml")
     >>> root = tree.getroot()
     >>> countries = [country for country in root.iter("country")]
-    >>> update_attribute(countries[0].find("neighbor"), "name", "Czech republic")
+    >>> update_attribute(countries[0].find("neighbor"),"name","Czech republic")
     'Czech republic'
     """
     try:
@@ -226,11 +226,11 @@ def replace_values(data: dict, pattern: dict) -> dict:
     """
     for key_out, value in data.items():
         for key_in, val in value.items():
-                if val != "nan_sourceDir":
-                        root, lesson, name, subdir = val.split("/")
-                        data[key_out][key_in] = "/".join(
-                            (root, lesson, pattern.get(name), subdir)
-                        )
+            if val != "nan_sourceDir":
+                root, lesson, name, subdir = val.split("/")
+                data[key_out][key_in] = "/".join(
+                    (root, lesson, pattern.get(name), subdir)
+                )
     return data
 
 
