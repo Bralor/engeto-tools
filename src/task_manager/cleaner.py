@@ -33,7 +33,7 @@ def select_attr(
         element: xml.etree.ElementTree.Element,
         child: str,
         attr_name: str
-    ) -> str:
+) -> str:
     """
     Return a string from the attribute with a path.
 
@@ -73,7 +73,7 @@ def split_name(path: str) -> str:
     'boo'
     """
     try:
-        _, _, name , _ = path.split("/")
+        _, _, name, _ = path.split("/")
 
     except BaseException:
         output = ""
@@ -97,6 +97,28 @@ def remove_unused_lessons(lessons: list, target: str, rel_path: str) -> None:
     for folder in lessons:
         if folder != target:
             shutil.rmtree(os.path.join(rel_path, folder))
+
+
+def rename_dirs(dirs: tuple, pattern: dict, package: str) -> None:
+    """
+    Rename the given sequence of directories according to the pattern.
+
+    :param dirs: a sequence of folders.
+    :type dirs: tuple
+    :param pattern: a mapping object with keys as current names.
+    :type pattern: dict
+    :param package: a relative path of the package.
+    :type package: str
+
+    """
+    for folder in os.listdir(package):
+        print(folder)
+        if not os.path.exists(os.path.join(package, folder)):
+            continue
+
+        updated_name = pattern.get(folder)
+        os.rename(os.path.join(package, folder),
+                  os.path.join(package, updated_name))
 
 
 if __name__ == "__main__":
