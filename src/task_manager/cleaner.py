@@ -82,3 +82,23 @@ def split_name(path: str) -> str:
     finally:
         return output
 
+
+def remove_unused_lessons(lessons: list, target: str, rel_path: str) -> None:
+    """
+    Remove all the directories in the given sequence except of the target.
+
+    :param lessons: a sequence of files.
+    :type lessons: list
+    :param target: name of the target.
+    :type target: str
+    :param rel_path: a relative path to the lesson.
+    :type target: str
+    """
+    for folder in lessons:
+        if folder != target:
+            shutil.rmtree(os.path.join(rel_path, folder))
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
