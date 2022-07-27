@@ -18,5 +18,6 @@ lesson01 = {
     "string_operations": "spojovani_stringu",
     "unit_converter": "prevadec_jednotek",
     "buying_cars": "nakupujeme_auto",
-    "destinatio_1_cz": "destinatio_1"
+    "destinatio_1_cz": "destinatio_1",
+    "string_length": "delka_stringu"
 }
