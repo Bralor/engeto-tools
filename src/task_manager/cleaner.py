@@ -109,16 +109,40 @@ def rename_dirs(dirs: tuple, pattern: dict, package: str) -> None:
     :type pattern: dict
     :param package: a relative path of the package.
     :type package: str
-
     """
-    for folder in os.listdir(package):
-        print(folder)
+    for folder in dirs:
         if not os.path.exists(os.path.join(package, folder)):
             continue
 
         updated_name = pattern.get(folder)
         os.rename(os.path.join(package, folder),
                   os.path.join(package, updated_name))
+
+
+def move_content(dirs: tuple, engeto_repo: str, package: str) -> None:
+    """
+    Move the content of the task folder from the package to the repository.
+
+    :param dirs: a sequence of all the czech task names.
+    :type dirs: tuple
+    :param engeto_repo: a relative path to the repository.
+    :type engeto_repo: str
+    :param package: a relative path to the package.
+    :type package: str
+    """
+    for folder in dirs:
+        enge_solution = os.path.join(
+            engeto_repo, "exercises", "L01", folder, "solution"
+        )
+        pack_solution = os.path.join(package, folder)
+
+        if not os.path.exists(enge_solution) \
+                or not os.path.exists(pack_solution):
+            continue
+        shutil.copyfile(
+            os.path.join(pack_solution, f"{folder}.py"),
+            os.path.join(enge_solution, "main.py")
+        )
 
 
 if __name__ == "__main__":
