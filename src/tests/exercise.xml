@@ -1,0 +1,69 @@
+<root>
+  <exercise uuid="dfa67de4-9f5d-43d9-9d71-4231bf49dfcf" name="Převaděč jednotek" difficulty="1" timeEstimate="10" type="programming" language="python3">
+              <perex><![CDATA[
+
+  U&#x17E; nebude&#x161; muset v hlave kalkulovat p&#x159;evody imperi&#xE1;ln&#xED;ch
+  jednotek na metrick&#xE9;. Napi&#x161; si na
+  to program!
+                          ]]></perex>
+              <skeleton sourceDir="exercises/L01/unit_converter/skeleton"/>
+              <unit-tests src="exercises/L01/unit_converter/tests.py"/>
+              <description sourceDir="exercises/L01/unit_converter/skeleton"><![CDATA[Cíle této úlohy bude vytvořit jednoduchý **převaděč jednotek**.
+
+  Převaděč bude umět následující:
+  1.  Převod z **kilogramů** na **libry**,
+  2. z **kilometrů** na **míle**,
+  3. z **litrů** na **galony**.
+
+  <br>
+
+  1. Na začátek máš předepsané **převodní poměry** k jednotkám.
+
+  2. Vytvoř nejprve proměnné s počtem jednotek `kg_pocet` , `km_pocet`, `l_pocet`. Poté proměnné s výpočtem `kg_vysledek`
+  , `km_vysledek` , `l_vysledek`.
+
+  3. Následně převeď:
+  - 80 kg na lb
+  - 54 km na míle
+  - 5 l na gal
+
+  4. Nakonec výsledky přehledně vypiš.]]></description>
+              <solution sourceDir="exercises/L01/unit_converter/solution"><![CDATA[1. Na začátek máš předepsané **převodní poměry** k jednotkám.
+  ```python
+  kg_lb = 2.20
+  km_mile = 0.62
+  l_gal = 0.26
+  ```
+
+  <br>
+
+  2. Vytvoř nejprve proměnné s počtem jednotek `kg_pocet` , `km_pocet`, `l_pocet`. Poté proměnné s výpočtem `kg_vysledek`
+  , `km_vysledek` , `l_vysledek`.
+  ```python
+  kg_pocet = 80
+  km_pocet = 54
+  l_pocet = 5
+  ```
+
+  <br>
+
+  3. Následně převeď:
+  - 80 kg na lb
+  - 54 km na míle
+  - 5 l na gal
+  ```python
+  kg_vysledek = kg_lb * kg_pocet
+  km_vysledek = km_mile * km_pocet
+  l_vysledek = l_gal * l_pocet
+  ```
+
+  <br>
+
+  4. Nakonec výsledky přehledně vypiš.
+  ```python
+  print(kg_pocet, 'kg je', kg_vysledek, 'lb')
+  print(km_pocet, 'km je', km_vysledek, 'mil')
+  print(l_pocet, 'l je', l_vysledek, 'gal')
+  ```]]></solution>
+            </exercise>
+</root>
