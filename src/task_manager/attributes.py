@@ -31,28 +31,28 @@ def update_all(exercises: list, new_path: dict) -> None:
 
     :Example:
     >>> import xml.etree.ElementTree as te
-    >>> tree = te.parse("src/tests/bar.xml")
+    >>> tree = te.parse("srcTests/tests/bar.xml")
     >>> root = tree.getroot()
     >>> exercises = [exercise for exercise in root.iter("exercise")]
     >>> out = {'Rozdělení stringu': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/rozdeleni_stringu/skeleton',
-    ...     'unit-tests': 'nan_sourceDir',
+    ...     'exercise-folder': 'exercises/L01/rozdeleni_stringu/exercise-folder',
+    ...     'tests': 'nan_sourceDir',
     ...     'solution': 'exercises/L01/rozdeleni_stringu/solution',
-    ...     'description': 'exercises/L01/rozdeleni_stringu/skeleton'},
+    ...     'description': 'exercises/L01/rozdeleni_stringu/exercise-folder'},
     ...     'Spojování stringů': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/spojovani_stringu/skeleton',
+    ...     'exercise-folder': 'exercises/L01/spojovani_stringu/exercise-folder',
     ...     'solution': 'exercises/L01/spojovani_stringu/solution',
-    ...     'description': 'exercises/L01/spojovani_stringu/skeleton'}}
+    ...     'description': 'exercises/L01/spojovani_stringu/exercise-folder'}}
     >>> update_all(exercises, out)
-    >>> exercises[0].find("skeleton").attrib["sourceDir"]
-    'exercises/L01/rozdeleni_stringu/skeleton'
-    >>> exercises[1].find("skeleton").attrib["sourceDir"]
-    'exercises/L01/spojovani_stringu/skeleton'
+    >>> exercises[0].find("exercise-folder").attrib["sourceDir"]
+    'exercises/L01/rozdeleni_stringu/exercise-folder'
+    >>> exercises[1].find("exercise-folder").attrib["sourceDir"]
+    'exercises/L01/spojovani_stringu/exercise-folder'
     """
     for exercise in exercises:
         update_exercise(
             exercise, new_path[exercise.attrib["name"]], "sourceDir",
-            "skeleton", "unit-tests", "description", "solution")
+            "exercise-folder", "tests", "description", "solution")
 
 
 def update_exercise(
@@ -75,31 +75,31 @@ def update_exercise(
 
     :Example:
     >>> import xml.etree.ElementTree as te
-    >>> tree = te.parse("src/tests/bar.xml")
+    >>> tree = te.parse("srcTests/tests/bar.xml")
     >>> root = tree.getroot()
     >>> out = {'Rozdělení stringu': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/rozdeleni_stringu/skeleton',
-    ...     'unit-tests': 'nan_sourceDir',
+    ...     'exercise-folder': 'exercises/L01/rozdeleni_stringu/exercise-folder',
+    ...     'tests': 'nan_sourceDir',
     ...     'solution': 'exercises/L01/rozdeleni_stringu/solution',
-    ...     'description': 'exercises/L01/rozdeleni_stringu/skeleton'},
+    ...     'description': 'exercises/L01/rozdeleni_stringu/exercise-folder'},
     ...     'Spojování stringů': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/spojovani_stringu/skeleton',
+    ...     'exercise-folder': 'exercises/L01/spojovani_stringu/exercise-folder',
     ...     'solution': 'exercises/L01/spojovani_stringu/solution',
-    ...     'description': 'exercises/L01/spojovani_stringu/skeleton'}}
+    ...     'description': 'exercises/L01/spojovani_stringu/exercise-folder'}}
     >>> exercises = [exercise for exercise in root.iter("exercise")]
     >>> update_exercise(
     ...     exercises[0], out[exercises[0].attrib["name"]],
-    ...     "sourceDir", "skeleton", "unit-tests"
+    ...     "sourceDir", "exercise-folder", "tests"
     ... )
-    >>> exercises[0].find("skeleton").attrib["sourceDir"]
-    'exercises/L01/rozdeleni_stringu/skeleton'
-    >>> exercises[0].find("unit-tests").attrib["src"]
+    >>> exercises[0].find("exercise-folder").attrib["sourceDir"]
+    'exercises/L01/rozdeleni_stringu/exercise-folder'
+    >>> exercises[0].find("tests").attrib["srcTests"]
     'nan_sourceDir'
     """
     for child in children:
-        if child == "unit-tests":
+        if child == "tests":
             update_attribute(
-                exercise.find(child), "src", new_path.get(child)
+                exercise.find(child), "srcTests", new_path.get(child)
             )
         else:
             update_attribute(
@@ -126,7 +126,7 @@ def update_attribute(
 
     :Example:
     >>> import xml.etree.ElementTree as te
-    >>> tree = te.parse("src/tests/foo.xml")
+    >>> tree = te.parse("srcTests/tests/foo.xml")
     >>> root = tree.getroot()
     >>> countries = [country for country in root.iter("country")]
     >>> update_attribute(countries[0].find("neighbor"),"name","Czech republic")
@@ -154,7 +154,7 @@ def collect_data(exercises: list) -> dict:
 
     :Example:
     >>> import xml.etree.ElementTree as te
-    >>> tree = te.parse("src/tests/bar.xml")
+    >>> tree = te.parse("srcTests/tests/bar.xml")
     >>> root = tree.getroot()
     >>> exercises = [exercise for exercise in root.iter("exercise")]
     >>> out = collect_data(exercises)
@@ -178,20 +178,20 @@ def collect_task_data(exercise: xml.etree.ElementTree.Element) -> dict:
 
     :Example:
     >>> import xml.etree.ElementTree as te
-    >>> tree = te.parse("src/tests/bar.xml")
+    >>> tree = te.parse("srcTests/tests/bar.xml")
     >>> root = tree.getroot()
     >>> exercises = [exercise for exercise in root.iter("exercise")]
     >>> out = collect_task_data(exercises[0])
-    >>> out["skeleton"]
-    'exercises/L01/slicing_string/skeleton'
-    >>> out["unit-tests"]
+    >>> out["exercise-folder"]
+    'exercises/L01/slicing_string/exercise-folder'
+    >>> out["tests"]
     'exercises/L01/slicing_string/tests.py'
     """
     data = dict()
 
     for element in list(exercise):
-        if element.tag == "unit-tests":
-            data[element.tag] = element.attrib.get("src", "nan_sourceDir")
+        if element.tag == "tests":
+            data[element.tag] = element.attrib.get("srcTests", "nan_sourceDir")
         else:
             data[element.tag] = element.attrib.get("sourceDir", "nan_sourceDir")
 
@@ -211,18 +211,18 @@ def replace_values(data: dict, pattern: dict) -> dict:
     :rtype: dict
 
     :Example:
-    >>> from src.task_manager.utils import lesson01
+    >>> from srcTests.task_manager.utils import lesson01
     >>> out = {'Rozdělení stringu': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/rozdeleni_stringu/skeleton',
-    ...     'unit-tests': 'nan_sourceDir',
+    ...     'exercise-folder': 'exercises/L01/rozdeleni_stringu/exercise-folder',
+    ...     'tests': 'nan_sourceDir',
     ...     'solution': 'exercises/L01/rozdeleni_stringu/solution',
-    ...     'description': 'exercises/L01/rozdeleni_stringu/skeleton'},
+    ...     'description': 'exercises/L01/rozdeleni_stringu/exercise-folder'},
     ...     'Spojování stringů': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/spojovani_stringu/skeleton',
+    ...     'exercise-folder': 'exercises/L01/spojovani_stringu/exercise-folder',
     ...     'solution': 'exercises/L01/spojovani_stringu/solution',
-    ...     'description': 'exercises/L01/spojovani_stringu/skeleton'}}
+    ...     'description': 'exercises/L01/spojovani_stringu/exercise-folder'}}
     >>> replace_values(out, lesson01)['Rozdělení stringu']['description']
-    'exericses/L01/rozdeleni_stringu/skeleton'
+    'exericses/L01/rozdeleni_stringu/exercise-folder'
     """
     for key_out, value in data.items():
         for key_in, val in value.items():
