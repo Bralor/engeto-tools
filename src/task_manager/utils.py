@@ -21,3 +21,15 @@ lesson01 = {
     "destinatio_1_cz": "destinatio_1",
     "string_length": "delka_stringu"
 }
+
+lesson02 = {
+    'list_operations_2': "list_indexovani",
+    'palindrom': "palindrom",
+    'bmi_calculator': "bmi_kalkulacka",
+    'zjisteni_delky_stringu': "delka_stringu",
+    'convert_time': "prevod_casu",
+    'create_list_add_elements': "list_pridavani_hodnot",
+    'list_operations_1': "list_odstranovani_hodnot",
+    'first_letter': "prvni_pismeno",
+    'destinatio_2_cz': "destinatio_2"
+}
