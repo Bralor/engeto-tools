@@ -14,7 +14,7 @@ def select_names(exercises: list) -> set:
 
     :Example:
     >>> import xml.etree.ElementTree as et
-    >>> tree = et.parse("src/tests/bar.xml")
+    >>> tree = et.parse("srcTests/tests/bar.xml")
     >>> root = tree.getroot()
     >>> exercises = [exercise for exercise in root.iter("exercise")]
     >>> print(select_names(exercises))
@@ -48,7 +48,7 @@ def select_attr(
 
     :Example:
     >>> import xml.etree.ElementTree as et
-    >>> tree = et.parse("src/tests/bar.xml")
+    >>> tree = et.parse("srcTests/tests/bar.xml")
     >>> root = tree.getroot()
     >>> exercises = [exercise for exercise in root.iter("exercise")]
     >>> print(select_attr(exercises[0], "solution", "sourceDir"))

@@ -160,7 +160,7 @@ def write_description(
 
     :Example:
     >>> import xml.etree.ElementTree as te
-    >>> tree = te.parse("src/tests/foo.xml")
+    >>> tree = te.parse("srcTests/tests/foo.xml")
     >>> root = tree.getroot()
     >>> countries = [country for country in root.iter("country")]
     >>> print(write_description("XXXX", countries[0], "year"))

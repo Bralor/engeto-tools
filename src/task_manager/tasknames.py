@@ -14,7 +14,7 @@ def get_all_tasks(root: xml.etree.ElementTree.Element, value: str) -> list:
 
     :Example:
     >>> import xml.etree.ElementTree
-    >>> test_xml = "src/tests/foo.xml"
+    >>> test_xml = "srcTests/tests/foo.xml"
     >>> tree = xml.etree.ElementTree.parse(test_xml)
     >>> root = tree.getroot()
     >>> len(get_all_tasks(root, "country"))
@@ -44,7 +44,7 @@ def get_specific_elements(
 
     :Example:
     >>> import xml.etree.ElementTree as xml
-    >>> tree = xml.parse("src/tests/foo.xml")
+    >>> tree = xml.parse("srcTests/tests/foo.xml")
     >>> root = tree.getroot()
     >>> len(get_specific_elements(root, "country", "name", "P"))
     1
@@ -69,7 +69,7 @@ def select_attr_value(elements: list, attr_name: str) -> list:
 
     :Example:
     >>> import xml.etree.ElementTree as xml
-    >>> tree = xml.parse("src/tests/foo.xml")
+    >>> tree = xml.parse("srcTests/tests/foo.xml")
     >>> root = tree.getroot()
     >>> elms = [
     ...    element
@@ -109,7 +109,7 @@ def get_task_names(
 
     :Example:
     >>> import xml.etree.ElementTree
-    >>> test_xml = "src/tests/foo.xml"
+    >>> test_xml = "srcTests/tests/foo.xml"
     >>> tree = xml.etree.ElementTree.parse(test_xml)
     >>> root = tree.getroot()
     >>> output = get_task_names(root, "country", "name", "P", "name")
