@@ -14,7 +14,7 @@ def get_all_tasks(root: xml.etree.ElementTree.Element, value: str) -> list:
 
     :Example:
     >>> import xml.etree.ElementTree
-    >>> test_xml = "src/tests/foo.xml"
+    >>> test_xml = "srcTests/tests/foo.xml"
     >>> tree = xml.etree.ElementTree.parse(test_xml)
     >>> root = tree.getroot()
     >>> len(get_all_tasks(root, "country"))
@@ -27,9 +27,10 @@ def get_all_tasks(root: xml.etree.ElementTree.Element, value: str) -> list:
 
 
 def get_specific_elements(
-        root: xml.etree.ElementTree.Element,
-        xml_tag: str, xml_attr: str, attr_val: str
-    ) -> list:
+    root: xml.etree.ElementTree.Element,
+    xml_tag: str, xml_attr: str, attr_val: str
+) -> list:
+
     """
     From the given root, return the list of elements that are matching given
     keyword arguments.
@@ -43,7 +44,7 @@ def get_specific_elements(
 
     :Example:
     >>> import xml.etree.ElementTree as xml
-    >>> tree = xml.parse("src/tests/foo.xml")
+    >>> tree = xml.parse("srcTests/tests/foo.xml")
     >>> root = tree.getroot()
     >>> len(get_specific_elements(root, "country", "name", "P"))
     1
@@ -68,7 +69,7 @@ def select_attr_value(elements: list, attr_name: str) -> list:
 
     :Example:
     >>> import xml.etree.ElementTree as xml
-    >>> tree = xml.parse("src/tests/foo.xml")
+    >>> tree = xml.parse("srcTests/tests/foo.xml")
     >>> root = tree.getroot()
     >>> elms = [
     ...    element
@@ -86,12 +87,12 @@ def select_attr_value(elements: list, attr_name: str) -> list:
 
 
 def get_task_names(
-        root: xml.etree.ElementTree.Element,
-        xml_tag: str,
-        xml_attr: str,
-        attr_val: str,
-        target: str = "sourceDir"
-    ) -> list:
+    root: xml.etree.ElementTree.Element,
+    xml_tag: str,
+    xml_attr: str,
+    attr_val: str,
+    target: str = "sourceDir"
+) -> list:
     """
     Return the list of all names from the given XML.
 
@@ -108,7 +109,7 @@ def get_task_names(
 
     :Example:
     >>> import xml.etree.ElementTree
-    >>> test_xml = "src/tests/foo.xml"
+    >>> test_xml = "srcTests/tests/foo.xml"
     >>> tree = xml.etree.ElementTree.parse(test_xml)
     >>> root = tree.getroot()
     >>> output = get_task_names(root, "country", "name", "P", "name")
@@ -153,8 +154,7 @@ def parse_name(path: str) -> tuple:
     """
     try:
         folder, lesson, name, _ = path.split("/")
-
-    except:
+    except Exception:
         output = "", "", ""
     else:
         output = folder, lesson, name

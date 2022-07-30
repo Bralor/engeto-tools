@@ -12,7 +12,7 @@ def get_xml_root(filename: str) -> xml.etree.ElementTree.ElementTree:
 
     :Example:
     >>> isinstance(
-    ...     get_xml_root("src/tests/foo.xml"),
+    ...     get_xml_root("srcTests/tests/foo.xml"),
     ...     xml.etree.ElementTree.ElementTree
     ... )
     True
