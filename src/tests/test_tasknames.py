@@ -71,20 +71,20 @@ def test_get_task_names_returns_expected_data_type():
 
 
 def test_create_task_data_returns_expected_result():
-    assert ttn.create_task_data(("hhh/kkk/sss/ddd",)) == {'sss': {'folder': 'hhh', 'lesson': 'kkk', 'path': 'hhh/kkk/sss/ddd'}}
+    assert ttn.create_task_data(("tasks/lesson01/nakupujeme_auto/nakupujeme_auto",)) == {'nakupujeme_auto': {'folder': 'tasks', 'lesson': 'lesson01', 'path': 'tasks/lesson01/nakupujeme_auto/nakupujeme_auto'}}
 
 
 def test_create_task_data_returns_expected_data_type():
-    result = ttn.create_task_data(("hhh/kkk/sss/ddd",))
+    result = ttn.create_task_data("tasks/lesson01/nakupujeme_auto/nakupujeme_auto",)
     assert isinstance(result, dict)
 
 
 def test_parse_name_returns_expected_result():
-    assert ttn.parse_name("foo/bar/fii/doo") == ('foo', 'bar', 'fii')
+    assert ttn.parse_name("tasks/lesson01/nakupujeme_auto/nakupujeme_auto") == ('tasks', 'lesson01', 'nakupujeme_auto')
 
 
 def test_parse_name_returns_expected_data_type():
-    result = ttn.parse_name("foo/bar/fii/doo")
+    result = ttn.parse_name("tasks/lesson01/nakupujeme_auto/nakupujeme_auto")
     assert isinstance(result, tuple)
 
 
