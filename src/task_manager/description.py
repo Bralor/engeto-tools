@@ -1,7 +1,7 @@
 import os
 import xml.etree.ElementTree
 
-from task_manager.utils import lessons, lesson01
+import task_manager.utils as tu
 
 from task_manager.text_processor import process_text
 
@@ -11,7 +11,7 @@ def replace_descriptions(
         data: dict,
         exercises: list,
         package: str
-    ) -> None:
+) -> None:
     """
     Update the XML tree with the given task names and task elements.
 
@@ -47,14 +47,22 @@ def process_description(
     :return: an overwritten text.
     :rtype: str
     """
-    name = get_current_name(task_data[0], lesson01)
-    lesson_nr = get_current_lesson(task_data, lessons)
+    lesson = load_lesson_tasks(tu.lessons.get(task_data[1]["lesson"]))
+    name = get_current_name(task_data[0], lesson)  # GOT IT!
+    lesson_nr = get_current_lesson(task_data, tu.lessons)
     processed_txt = process_text(
         read_description(
             package, name, lesson_nr
         )
     )
     return write_description(processed_txt, exercise)
+
+
+def load_lesson_tasks(lesson: str) -> dict:
+    """
+    Return an object with the name mapping for the specific lesson.
+    """
+    return getattr(globals()["tu"], lesson)
 
 
 def get_current_name(old_name: str, pattern: dict) -> str:
@@ -169,7 +177,6 @@ def write_description(
     description_tag = selected_element.find(child)
     description_tag.text = text
     return description_tag.text
-
 
 
 if __name__ == "__main__":
