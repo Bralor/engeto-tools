@@ -1,5 +1,8 @@
 import xml.etree.ElementTree
 
+import task_manager.utils as tu
+from task_manager.description import load_lesson_tasks
+
 
 def replace_attributes(
         tree: xml.etree.ElementTree.ElementTree,
@@ -226,11 +229,12 @@ def replace_values(data: dict, pattern: dict) -> dict:
     """
     for key_out, value in data.items():
         for key_in, val in value.items():
-                if val != "nan_sourceDir":
-                        root, lesson, name, subdir = val.split("/")
-                        data[key_out][key_in] = "/".join(
-                            (root, lesson, pattern.get(name), subdir)
-                        )
+            if val != "nan_sourceDir":
+                root, lesson, name, subdir = val.split("/")
+                updated = load_lesson_tasks(tu.lessons.get(lesson))
+                data[key_out][key_in] = "/".join(
+                    (root, lesson, updated.get(name), subdir)
+                )
     return data
 
 
