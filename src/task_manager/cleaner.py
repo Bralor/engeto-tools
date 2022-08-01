@@ -2,6 +2,8 @@ import os
 import shutil
 import xml.etree.ElementTree
 
+from task_manager.description import load_lesson_tasks
+
 
 def select_names(exercises: list) -> set:
     """
@@ -99,7 +101,7 @@ def remove_unused_lessons(lessons: list, target: str, rel_path: str) -> None:
             shutil.rmtree(os.path.join(rel_path, folder))
 
 
-def rename_dirs(dirs: tuple, pattern: dict, package: str) -> None:
+def rename_dirs(dirs: tuple, pattern: str, package: str) -> None:
     """
     Rename the given sequence of directories according to the pattern.
 
@@ -113,13 +115,16 @@ def rename_dirs(dirs: tuple, pattern: dict, package: str) -> None:
     for folder in dirs:
         if not os.path.exists(os.path.join(package, folder)):
             continue
+        updated = load_lesson_tasks(pattern).get(folder)
 
-        updated_name = pattern.get(folder)
+        if not updated:
+            shutil.rmtree(os.path.join(package, folder))
+            continue
         os.rename(os.path.join(package, folder),
-                  os.path.join(package, updated_name))
+                  os.path.join(package, updated))
 
 
-def move_content(dirs: tuple, engeto_repo: str, package: str) -> None:
+def move_content(lesson_path: str, engeto_repo: str, package: str) -> None:
     """
     Move the content of the task folder from the package to the repository.
 
@@ -130,9 +135,11 @@ def move_content(dirs: tuple, engeto_repo: str, package: str) -> None:
     :param package: a relative path to the package.
     :type package: str
     """
-    for folder in dirs:
+    lesson = os.path.basename(lesson_path)
+
+    for folder in os.listdir(lesson_path):
         enge_solution = os.path.join(
-            engeto_repo, "exercises", "L01", folder, "solution"
+            engeto_repo, "exercises", lesson, folder, "solution"
         )
         pack_solution = os.path.join(package, folder)
 
