@@ -201,7 +201,7 @@ def collect_task_data(exercise: xml.etree.ElementTree.Element) -> dict:
     return data
 
 
-def replace_values(data: dict, pattern: dict) -> dict:
+def replace_values(data: dict) -> dict:
     """
     Return an object with replaced values of the old attributes.
 
