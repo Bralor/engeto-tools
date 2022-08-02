@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<course>
+    <lesson>
+        <chapter>
+          <exercise name="Rozdělení stringu" type="programming" language="python3" timeEstimate="10" difficulty="2">
+            <perex>Vytvoř program, ...</perex>
+            <skeleton sourceDir="exercises/L01/slicing_string/skeleton"/>
+            <unit-tests src="exercises/L01/slicing_string/tests.py"/>
+            <solution sourceDir="exercises/L01/slicing_string/solution"></solution>
+            <description sourceDir="exercises/L01/slicing_string/skeleton">
+            </description>
+          </exercise>
+        </chapter>
+        <chapter>
+          <exercise name="Spojování stringů" difficulty="2" timeEstimate="20" type="programming" language="python3">
+            <perex>V tomto úkolu si...</perex>
+            <skeleton sourceDir="exercises/L01/string_operations/skeleton"/>
+            <solution sourceDir="exercises/L01/string_operations/solution"></solution>
+            <description sourceDir="exercises/L01/string_operations/skeleton">
+            </description>
+          </exercise>
+      </chapter>
+    </lesson>
+</course>
