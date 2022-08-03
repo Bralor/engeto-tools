@@ -16,7 +16,7 @@ from task_manager.cleaner import remove_unused_lessons
 from task_manager.cleaner import rename_dirs, move_content
 
 
-def task_processor(engeto: str, task_p: str, xml_source: str) -> str:
+def task_desc_processor(engeto: str, task_p: str, xml_source: str) -> None:
     """
     Run the processor of the descriptions in a XML source file.
     """
@@ -29,9 +29,7 @@ def task_processor(engeto: str, task_p: str, xml_source: str) -> str:
         "sourceDir", "exercises/"
     )
     task_data = create_task_data(task_names)
-    output = replace_descriptions(tree, task_data, exercises, task_p)
-
-    return output
+    replace_descriptions(tree, task_data, exercises, task_p)
 
 
 def task_attr_processor(engeto_repo: str, source: str) -> None:
@@ -50,8 +48,7 @@ def task_attr_processor(engeto_repo: str, source: str) -> None:
 def task_content_processor(
         engeto_repo: str,
         lesson_num: str,
-        pattern: str
-) -> None:
+        ) -> None:
     """
     Run the main function and remove all the unused lesson and tasks.
     """
