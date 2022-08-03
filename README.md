@@ -41,7 +41,8 @@ pip install .
 
 Updating the description of the tasks:
 ```
->>> from src.task_manager.processor import task_processor as tp
+>>> import task_manager.processor as tp
+>>> #task_desc_processor
 >>> #tp("<engeto_repo>", "<task_package>", "<xml_source_file>")
 >>> tp(
 ...     "../python-uvod-do-programovani",
@@ -52,7 +53,26 @@ Updating the description of the tasks:
 
 Updating the elements `exercise` and their attribute values:
 ```
->>> from src.task_manager.processor import  task_attr_processor as tap
->>> tap()
+>>> import task_manager.processor as tp
+>>> # task_attr_processor
+>>> tp.task_attr_processor(
+...    "../python-uvod-do-programovani",
+...    "../output_xml.xml"
+... )
 ```
 
+Updating the content of the exercises in the folder `exercises`:
+```
+>>> import task_manager.processor as tp
+>>> # task_content_processor
+>>> tp.task_content_processor(
+...    "../python-uvod-do-programovani",
+...    "lesson01",
+... )
+```
+
+### Development
+
+---
+
+to-do
