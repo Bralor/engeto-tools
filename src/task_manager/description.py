@@ -23,17 +23,16 @@ def replace_descriptions(
     :type exercises: list
     """
     for task_data, exercise in zip(data.items(), exercises):
-        report = process_description(task_data, exercise, package)
-        print(report[:50])
+        process_description(task_data, exercise, package)
 
-    tree.write("output_descr.xml", encoding="utf-8")
+    tree.write("output_desc.xml", encoding="utf-8")
 
 
 def process_description(
         task_data: tuple,
         exercise: xml.etree.ElementTree.Element,
         package: str
-    ) -> str:
+        ) -> None:
     """
     Read the content of created README.md paths. Then insert the readed text
     into the tree.
@@ -47,22 +46,33 @@ def process_description(
     :return: an overwritten text.
     :rtype: str
     """
-    lesson = load_lesson_tasks(tu.lessons.get(task_data[1]["lesson"]))
-    name = get_current_name(task_data[0], lesson)  # GOT IT!
-    lesson_nr = get_current_lesson(task_data, tu.lessons)
-    processed_txt = process_text(
-        read_description(
-            package, name, lesson_nr
-        )
+    lesson = load_lesson_tasks(
+        tu.lessons.get(task_data[1]["lesson"], "nan_lesson")
     )
-    return write_description(processed_txt, exercise)
+    name = get_current_name(task_data[0], lesson)
+
+    if lesson != "nan_lesson" and name != "nan_task":
+        lesson_nr = get_current_lesson(task_data, tu.lessons)
+        process_text(
+            read_description(
+                package, name, lesson_nr
+            )
+        )
 
 
 def load_lesson_tasks(lesson: str) -> dict:
     """
     Return an object with the name mapping for the specific lesson.
     """
-    return getattr(globals()["tu"], lesson)
+    try:
+        value = getattr(globals()["tu"], lesson)
+
+    except AttributeError:
+        output = {}
+    else:
+        output = value
+    finally:
+        return output
 
 
 def get_current_name(old_name: str, pattern: dict) -> str:
