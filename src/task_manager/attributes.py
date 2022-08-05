@@ -207,33 +207,31 @@ def replace_values(data: dict) -> dict:
 
     :param data: an object with parsed data from the attributes.
     :type data: dict
-    :param pattern: an object with keys as a current data and values as
-        an updated value.
-    :type pattern: dict
     :return: an object with an update values.
     :rtype: dict
 
     :Example:
-    >>> from src.task_manager.utils import lesson01
+    >>> from task_manager.utils import lesson01
     >>> out = {'Rozdělení stringu': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/rozdeleni_stringu/skeleton',
-    ...     'unit-tests': 'nan_sourceDir',
-    ...     'solution': 'exercises/L01/rozdeleni_stringu/solution',
     ...     'description': 'exercises/L01/rozdeleni_stringu/skeleton'},
     ...     'Spojování stringů': {'perex': 'nan_sourceDir',
-    ...     'skeleton': 'exercises/L01/spojovani_stringu/skeleton',
     ...     'solution': 'exercises/L01/spojovani_stringu/solution',
     ...     'description': 'exercises/L01/spojovani_stringu/skeleton'}}
-    >>> replace_values(out, lesson01)['Rozdělení stringu']['description']
+    >>> replace_values(out)['Rozdělení stringu']['description']
     'exericses/L01/rozdeleni_stringu/skeleton'
     """
     for key_out, value in data.items():
         for key_in, val in value.items():
             if val != "nan_sourceDir":
                 root, lesson, name, subdir = val.split("/")
-                updated = load_lesson_tasks(tu.lessons.get(lesson))
+                updated = load_lesson_tasks(
+                    tu.lessons.get(lesson, "nan_lesson")
+                ).get(name, "nan_name")
+
+                if updated == "nan_name":
+                    continue
                 data[key_out][key_in] = "/".join(
-                    (root, lesson, updated.get(name), subdir)
+                    (root, lesson, updated, subdir)
                 )
     return data
 
