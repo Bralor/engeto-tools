@@ -9,18 +9,17 @@ from task_manager.description import replace_descriptions
 from task_manager.tasknames import create_task_data
 from task_manager.tasknames import get_all_tasks, get_task_names
 
-from task_manager.attributes import replace_values
-from task_manager.attributes import replace_attributes, collect_data
+from task_manager.attributes import replace_values, collect_data, replace_attributes
 
 from task_manager.cleaner import remove_unused_lessons
 from task_manager.cleaner import rename_dirs, move_content
 
 
-def task_desc_processor(engeto: str, task_p: str, xml_source: str) -> None:
+def task_desc_processor(engeto: str, task_p: str) -> None:
     """
     Run the processor of the descriptions in a XML source file.
     """
-    rel_path = os.path.join(engeto, xml_source)
+    rel_path = os.path.join(engeto, f"course_{os.path.basename(engeto)}.xml")
     tree = get_xml_root(rel_path)
 
     exercises = get_all_tasks(tree.getroot(), "exercise")
@@ -32,13 +31,11 @@ def task_desc_processor(engeto: str, task_p: str, xml_source: str) -> None:
     replace_descriptions(tree, task_data, exercises, task_p)
 
 
-def task_attr_processor(engeto_repo: str, source: str) -> None:
+def task_attr_processor(source: str) -> None:
     """
     Run the main function for the overwritting the attributes.
     """
-    rel_path = os.path.join(engeto_repo, source)
-
-    tree = get_xml_root(rel_path)
+    tree = get_xml_root(source)
     exercises = get_all_tasks(tree.getroot(), "exercise")
 
     task_data = replace_values(collect_data(exercises))
