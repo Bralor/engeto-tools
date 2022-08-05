@@ -33,3 +33,23 @@ lesson02 = {
     'first_letter': "prvni_pismeno",
     'destinatio_2_cz': "destinatio_2"
 }
+
+lesson03 = {
+    'metody_slovniku_1': "rozsir_slovnik_slovnikem",
+    'metody_slovniku_2': "nahledy_slovniku",
+    'update': "slovnik_ve_slovniku",
+    'overeni_hesla_slovnik': "overeni_hesla",
+    'set_combinations': "sjednoceni_setu"
+}
+
+lesson04 = {
+    'count_numbers': "pocty_cisel",
+    'string_to_list': "ze_stringu_seznam",
+    'vowels': "samohlasky_a_souhlasky",
+    'odd_even_diff': "suda_vs_licha",
+    'fizzbuzz': "fizz_buzz",
+    'divisor': "delitel",
+    'sort': "skript_na_serazeni",
+    'chessboard': "sachovnice",
+    'counter': "pocitadlo"
+}
