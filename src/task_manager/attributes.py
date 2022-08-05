@@ -8,7 +8,7 @@ def replace_attributes(
         tree: xml.etree.ElementTree.ElementTree,
         exercises: list,
         new_path: dict
-    ) -> None:
+        ) -> None:
     """
     Replace attributes in the given exercise elements.
 
@@ -20,7 +20,7 @@ def replace_attributes(
     :type new_path: str
     """
     update_all(exercises, new_path)
-    tree.write("output_attrs.xml", encoding="utf-8")
+    tree.write("output_attr.xml", encoding="utf-8")
 
 
 def update_all(exercises: list, new_path: dict) -> None:
