@@ -1,5 +1,6 @@
 import os
 import shutil
+import logging
 import xml.etree.ElementTree
 
 import task_manager.utils as tu
@@ -233,24 +234,17 @@ def create_task_folder(rel_path: str, repository: str, package: str) -> None:
     :param package: a relative path of the pattern task folder.
     :type package: str
     """
-    # os.mkdir(rel_path)
-    print("creating...", repository)
+    try:
+        os.mkdir(os.path.join(repository, name))
 
-    for subfolder in "skeleton", "solution":
-        print("creating subs..", subfolder)
-        # os.mkdir(os.path.join(rel_path, subfolder))
+    except Exception:
+        logging.warning(f"Folder '{repository}' already exists")
+    else:
+        for subfolder in "skeleton", "solution":
+            os.mkdir(os.path.join(repository, name, subfolder))
 
-    # os.mknod("skeleton/main.py")
-    # shutil.copyfile(
-        # os.path.join(package, f"{os.path.basename(rel_path)}.py"),
-        # os.path.join(repository, "solution", "main.py")
-    # )
-    print(
-        os.path.join(package, f"{os.path.basename(rel_path)}.py"),
-        os.path.join(repository, "solution", "main.py")
-    )
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+        os.mknod(os.path.join(repository, name, "skeleton", "main.py"))
+        shutil.copyfile(
+            os.path.join(rel_path, f"{os.path.basename(rel_path)}.py"),
+            os.path.join(repository, name, "solution", "main.py")
+        )
