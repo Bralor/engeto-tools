@@ -175,13 +175,10 @@ def add_missing_tasks(engeto_tasks: str, package_tasks: str) -> None:
         rel_path_repo = os.path.join(package_tasks, file)
 
         if file != "__init__.py":
-            # print(rel_path_repo)
-            # print(engeto_tasks)
-            # print(package_tasks)
-            create_task_folder(rel_path_repo, engeto_tasks, package_tasks)
+            create_task_folder(file, rel_path_repo, engeto_tasks)
 
 
-def create_task_folder(rel_path: str, repository: str, package: str) -> None:
+def create_task_folder(name: str, rel_path: str, repository: str) -> None:
     """
     Create a new folder for the missing task. Then create subfolders 'skeleton'
     'solution' and the file 'skeleton/main.py'.
