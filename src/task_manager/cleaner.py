@@ -155,58 +155,18 @@ def move_content(lesson_path: str, engeto_repo: str, package: str) -> None:
             os.path.join(enge_solution, "main.py")
         )
 
-    # lesson = os.path.basename(lesson_path)  # L04
-    # # package_lesson = os.path.basename(package)
-
-    # # existing_tasks = load_lesson_tasks(tu.lessons.get(lesson, "nan_folder"))
-    # # moved = list()
-
-    # for folder in os.listdir(lesson_path):
-        # if folder not in existing_tasks:
-            # continue
-        # pack_solution = os.path.join(package, folder)
-        # enge_solution = os.path.join(
-            # engeto_repo, "exercises", lesson, folder, "solution"
-        # )
-        # # print(enge_solution)
-        # # print(pack_solution)
-
-        # if not os.path.exists(enge_solution) \
-                # or not os.path.exists(pack_solution):
-            # continue
-        # shutil.copyfile(
-            # os.path.join(pack_solution, f"{folder}.py"),
-            # os.path.join(enge_solution, "main.py")
-        # )
-        # moved.append(load_lesson_tasks(package_lesson).get(folder))
-
-    # # diff = set(moved)
-    # # diff = diff.add("__init__.py")
-    # # for folder in set(os.listdir(package)).difference(diff):
-        # # if os.path.exists(os.path.join(lesson_path, folder)):
-            # # continue
-        # # pack_solution = os.path.join(package, folder)
-        # # enge_solution = os.path.join(
-            # # engeto_repo, "exercises", lesson, load_lesson_tasks(tu.lessons.get(lesson)).get(folder), "solution"
-        # # )
-        # # print(pack_solution)
-        # # print(enge_solution)
-
-        # # shutil.copyfile(
-            # # os.path.join(pack_solution, f"{folder}.py"),
-            # # os.path.join(enge_solution, "main.py")
-        # # )
+    add_missing_tasks(lesson_path, package)
 
 
-def add_missing_task(engeto_tasks: str, package_tasks: str) -> None:
+def add_missing_tasks(engeto_tasks: str, package_tasks: str) -> None:
     """
     Create a task folder with content if the task is not part of current
     repository.
 
-    :Example:
-    >>> package = "../engeto_tasks/tasks/lesson04"
-    >>> repository = "../python-for-cyklus/exercise/L04"
-    >>> add_missing_task(package, repository)
+    :param engeto_tasks: a relative path of the folder.
+    :type engeto_tasks: str
+    :param package_tasks: a relative path of the new folder.
+    :type package_tasks: str
     """
     repository = set(os.listdir(engeto_tasks))
     package = set(os.listdir(package_tasks))
