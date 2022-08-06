@@ -80,7 +80,7 @@ def split_name(path: str) -> str:
     try:
         _, _, name, _ = path.split("/")
 
-    except BaseException:
+    except Exception:
         output = ""
     else:
         output = name
@@ -137,7 +137,6 @@ def move_content(lesson_path: str, engeto_repo: str, package: str) -> None:
     :type engeto_repo: str
     :param package: a relative path to the package.
     :type package: str
-
     """
     lesson = os.path.basename(lesson_path)
 
