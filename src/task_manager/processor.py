@@ -9,7 +9,8 @@ from task_manager.description import replace_descriptions
 from task_manager.tasknames import create_task_data
 from task_manager.tasknames import get_all_tasks, get_task_names
 
-from task_manager.attributes import replace_values, collect_data, replace_attributes
+from task_manager.attributes import replace_attributes
+from task_manager.attributes import replace_values, collect_data
 
 from task_manager.cleaner import remove_unused_lessons
 from task_manager.cleaner import rename_dirs, move_content
