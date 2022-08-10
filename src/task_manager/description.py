@@ -1,4 +1,5 @@
 import os
+import logging
 import xml.etree.ElementTree
 
 import task_manager.utils as tu
@@ -152,6 +153,7 @@ def read_description(pack_path: str, name: str, lesson: str) -> list:
             content = md.readlines()
 
     except FileNotFoundError:
+        logging.warning(f"Path does not exist: {lesson}/{name}/README.md")
         output = []
     else:
         output = content
