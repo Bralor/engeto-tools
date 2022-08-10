@@ -54,20 +54,23 @@ def task_content_processor(
         if value == lesson_num:
             lesson = key
 
-    remove_unused_lessons(
-        os.listdir(os.path.join(engeto_repo, "exercises")),
-        lesson,
-        os.path.join(engeto_repo, "exercises")
-    )
+    if lesson:
+        remove_unused_lessons(
+            os.listdir(os.path.join(engeto_repo, "exercises")),
+            lesson,
+            os.path.join(engeto_repo, "exercises")
+        )
 
-    rename_dirs(
-        tuple(os.listdir(os.path.join(engeto_repo, "exercises", lesson))),
-        lesson_num,
-        os.path.join(engeto_repo, "exercises", lesson)
-    )
+        rename_dirs(
+            tuple(os.listdir(os.path.join(engeto_repo, "exercises", lesson))),
+            lesson_num,
+            os.path.join(engeto_repo, "exercises", lesson)
+        )
 
-    move_content(
-        os.path.join(engeto_repo, "exercises", lesson),
-        engeto_repo,
-        os.path.join("../engeto_tasks/tasks", lesson_num)
-    )
+        move_content(
+            os.path.join(engeto_repo, "exercises", lesson),
+            engeto_repo,
+            os.path.join("../engeto_tasks/tasks", lesson_num)
+        )
+    else:
+        raise Exception(f"Cannot find lesson {lesson_num} in the utils")
