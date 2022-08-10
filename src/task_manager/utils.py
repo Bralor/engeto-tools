@@ -53,3 +53,10 @@ lesson04 = {
     'chessboard': "sachovnice",
     'counter': "pocitadlo"
 }
+
+lesson05 = {
+    'calculator': "kalkulacka",
+    'break': "prerus_vyber",
+    'nejdelsi_slovo': "ukladej_slova",
+    'shopping_cart': "nakupni_kosik"
+}
