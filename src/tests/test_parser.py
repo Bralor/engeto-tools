@@ -7,7 +7,9 @@ def test_if_get_xml_root_returns_expected_data_type():
 
 
 def test_if_set_xml_attr_returns_expected_result():
-    assert tp.set_xml_attr(name="Destinatio 1", lesson='L01') == {'name': 'Destinatio 1', 'lesson': 'L01'}
+    assert tp.set_xml_attr(
+        name="Destinatio 1", lesson='L01'
+    ) == {'name': 'Destinatio 1', 'lesson': 'L01'}
 
 
 def test_if_set_xml_attr_expected_data_type():

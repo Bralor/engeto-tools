@@ -1,13 +1,15 @@
-import xml.etree.ElementTree as te
 import task_manager.text_processor as ttp
 
 
 def test_if_select_boundaries_returns_expected_result():
-    assert ttp.select_boundaries(["first line\\n", "---\\n", "third line\\n", "---\\n"], "---\\n") == [1,3]
+    assert ttp.select_boundaries(
+        ["first line\\n", "---\\n", "third line\\n", "---\\n"], "---\\n"
+    ) == [1, 3]
 
 
 def test_if_select_boundaries_returns_expected_data_type():
-    result = ttp.select_boundaries(["first line\\n", "---\\n", "third line\\n", "---\\n"], "---\\n")
+    result = ttp.select_boundaries(
+        ["first line\\n", "---\\n", "third line\\n", "---\\n"], "---\\n")
     assert isinstance(result, list)
 
 
@@ -30,11 +32,15 @@ def test_if_remove_backticks_returns_expected_data_type():
 
 
 def test_if_clean_newlines_strs_returns_expected_result():
-    assert ttp.clean_newlines(["first line\n", "---\n", "third line\n", "---\n"]) == ['first line', '---', 'third line', '---']
+    assert ttp.clean_newlines(
+        ["first line\n", "---\n", "third line\n", "---\n"]
+    ) == ['first line', '---', 'third line', '---']
 
 
 def test_if_clean_newlines_returns_expected_data_type():
-    result = ttp.clean_newlines(["first line\n", "---\n", "third line\n", "---\n"])
+    result = ttp.clean_newlines(
+        ["first line\n", "---\n", "third line\n", "---\n"]
+    )
     assert isinstance(result, list)
 
 

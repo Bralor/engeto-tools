@@ -8,6 +8,7 @@ def test_get_all_tasks_returns_expected_result_len():
     root = tree.getroot()
     assert len(ttn.get_all_tasks(root, 'exercise')) == 1
 
+
 def test_if_get_all_tasks_returns_expected_data_type():
     test_xml = "./exercise.xml"
     tree = te.parse(test_xml)
@@ -31,7 +32,7 @@ def test_if_get_specific_elements_returns_expected_data_type():
     assert isinstance(result, list)
 
 
-def test_if_test_if_select_attr_value_returns_expected_data_type_returns_expected_result():
+def test_select_attr_value_returns_expected_data_type_returns_expected_result():
     tree = te.parse("./exercise.xml")
     root = tree.getroot()
     elms = [
@@ -59,7 +60,9 @@ def test_get_task_names_returns_expected_result():
     test_xml = "./exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
-    assert ttn.get_task_names(root, "exercise", "name", "P", "name") == ['Převaděč jednotek']
+    assert ttn.get_task_names(
+        root, "exercise", "name", "P", "name"
+    ) == ['Převaděč jednotek']
 
 
 def test_if_get_task_names_returns_expected_data_type():
@@ -71,7 +74,9 @@ def test_if_get_task_names_returns_expected_data_type():
 
 
 def test_create_task_data_returns_expected_result():
-    assert ttn.create_task_data(("hhh/kkk/sss/ddd",)) == {'sss': {'folder': 'hhh', 'lesson': 'kkk', 'path': 'hhh/kkk/sss/ddd'}}
+    assert ttn.create_task_data(
+        ("hhh/kkk/sss/ddd",)
+    ) == {'sss': {'folder': 'hhh', 'lesson': 'kkk', 'path': 'hhh/kkk/sss/ddd'}}
 
 
 def test_if_create_task_data_returns_expected_data_type():
@@ -89,17 +94,19 @@ def test_if_parse_name_returns_expected_data_type():
 
 
 def test_get_only_task_name_expected_result():
-    assert ttn.get_only_task_name( {"task1":
-             {"folder": "a", "lesson": "L01", "path": "foo"},
-         "task2":
-             {"folder": "b", "lesson":"L02", "path": "bar"}
-         }) == ('task1', 'task2')
+    assert ttn.get_only_task_name(
+        {
+            "task1": {"folder": "a", "lesson": "L01", "path": "foo"},
+            "task2": {"folder": "b", "lesson": "L02", "path": "bar"}
+        }
+    ) == ('task1', 'task2')
 
 
 def test_if_get_only_task_name_expected_data_type():
-    result = ttn.get_only_task_name( {"task1":
-             {"folder": "a", "lesson": "L01", "path": "foo"},
-         "task2":
-             {"folder": "b", "lesson":"L02", "path": "bar"}
-         })
+    result = ttn.get_only_task_name(
+        {
+            "task1": {"folder": "a", "lesson": "L01", "path": "foo"},
+            "task2": {"folder": "b", "lesson": "L02", "path": "bar"}
+        }
+    )
     assert isinstance(result, tuple)

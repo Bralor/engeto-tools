@@ -3,8 +3,6 @@ import shutil
 import logging
 import xml.etree.ElementTree
 
-import task_manager.utils as tu
-
 from task_manager.description import load_lesson_tasks
 
 
