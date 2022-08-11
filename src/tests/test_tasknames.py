@@ -3,14 +3,14 @@ import task_manager.tasknames as ttn
 
 
 def test_get_all_tasks_returns_expected_result_len():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     assert len(ttn.get_all_tasks(root, 'exercise')) == 1
 
 
 def test_if_get_all_tasks_returns_expected_data_type():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     result = ttn.get_all_tasks(root, 'exercise')
@@ -18,14 +18,14 @@ def test_if_get_all_tasks_returns_expected_data_type():
 
 
 def test_get_specific_elements_returns_expected_result_len():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     assert len(ttn.get_specific_elements(root, "exercise", "name", "P")) == 1
 
 
 def test_if_get_specific_elements_returns_expected_data_type():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     result = ttn.get_specific_elements(root, "exercise", "name", "P")
@@ -33,7 +33,7 @@ def test_if_get_specific_elements_returns_expected_data_type():
 
 
 def test_select_attr_value_returns_expected_data_type_returns_expected_result():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     elms = [
         element
@@ -44,7 +44,7 @@ def test_select_attr_value_returns_expected_data_type_returns_expected_result():
 
 
 def test_if_select_attr_value_returns_expected_data_type():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     elms = [
@@ -57,7 +57,7 @@ def test_if_select_attr_value_returns_expected_data_type():
 
 
 def test_get_task_names_returns_expected_result():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     assert ttn.get_task_names(
@@ -66,7 +66,7 @@ def test_get_task_names_returns_expected_result():
 
 
 def test_if_get_task_names_returns_expected_data_type():
-    test_xml = "./exercise.xml"
+    test_xml = "src/tests/exercise.xml"
     tree = te.parse(test_xml)
     root = tree.getroot()
     result = ttn.get_task_names(root, "exercise", "name", "P", "name")

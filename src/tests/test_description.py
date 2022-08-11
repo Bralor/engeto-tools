@@ -53,7 +53,7 @@ def test_if_read_description_returns_expected_data_type():
 
 
 def test_if_write_description_returns_expected_result():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercise = [exe for exe in root.iter("exercise")]
     assert td.write_description(
@@ -62,7 +62,7 @@ def test_if_write_description_returns_expected_result():
 
 
 def test_if_write_description_returns_expected_data_type():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercise = [exe for exe in root.iter("exercise")]
     result = td.write_description('test text', exercise[0], 'perex')

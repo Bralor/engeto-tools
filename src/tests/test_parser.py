@@ -3,7 +3,7 @@ import task_manager.parser as tp
 
 
 def test_if_get_xml_root_returns_expected_data_type():
-    assert isinstance(tp.get_xml_root("./exercise.xml"), te.ElementTree)
+    assert isinstance(tp.get_xml_root("src/tests/exercise.xml"), te.ElementTree)
 
 
 def test_if_set_xml_attr_returns_expected_result():
