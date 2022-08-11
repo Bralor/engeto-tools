@@ -1,4 +1,3 @@
-
 def process_text(text: list) -> str:
     """
     Return the processed text.

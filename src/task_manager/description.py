@@ -165,7 +165,7 @@ def write_description(
         text: str,
         selected_element: xml.etree.ElementTree.Element,
         child: str = "description"
-    ) -> str:
+        ) -> str:
     """
     Write a description of text inside the specific XML element.
 
