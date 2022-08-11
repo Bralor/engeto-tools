@@ -6,7 +6,7 @@ from task_manager.utils import lesson01
 
 
 def test_update_exercise_with_proper_elements():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     out = {
         'Převaděč jednotek':
@@ -29,7 +29,7 @@ def test_update_exercise_with_proper_elements():
 
 
 def test_update_attribute_returns_expected_result():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter("exercise")]
     assert ta.update_attribute(
@@ -40,7 +40,7 @@ def test_update_attribute_returns_expected_result():
 
 
 def test_if_update_attribute_returns_expected_data_type():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter("exercise")]
     result = ta.update_attribute(
@@ -51,7 +51,7 @@ def test_if_update_attribute_returns_expected_data_type():
 
 
 def test_collect_data_returns_expected_result():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter("exercise")]
     assert ta.collect_data(exercises) == {
@@ -67,7 +67,7 @@ def test_collect_data_returns_expected_result():
 
 
 def test_if_collect_data_returns_expected_data_type():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter("exercise")]
     result = ta.collect_data(exercises)
@@ -75,7 +75,7 @@ def test_if_collect_data_returns_expected_data_type():
 
 
 def test_collect_task_data_returns_expected_result():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter("exercise")]
     out = ta.collect_task_data(exercises[0])
@@ -83,7 +83,7 @@ def test_collect_task_data_returns_expected_result():
 
 
 def test_if_collect_task_data_returns_expected_data_type():
-    tree = te.parse("./exercise.xml")
+    tree = te.parse("src/tests/exercise.xml")
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter("exercise")]
     out = ta.collect_task_data(exercises[0])
