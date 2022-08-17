@@ -2,11 +2,12 @@ import os
 import shutil
 import logging
 import xml.etree.ElementTree
+from typing import List, Set, Tuple
 
 from task_manager.description import load_lesson_tasks
 
 
-def select_names(exercises: list) -> set:
+def select_names(exercises: List[xml.etree.ElementTree.Element]) -> Set[str]:
     """
     Return an object of task names.
 
@@ -58,7 +59,7 @@ def select_attr(
     exercises/L01/slicing_string/solution
     """
     solution = element.find(child)
-    return solution.attrib.get(attr_name, "nan_path")
+    return solution.attrib.get(attr_name, "nan_path")  # type: ignore
 
 
 def split_name(path: str) -> str:
@@ -86,7 +87,9 @@ def split_name(path: str) -> str:
         return output
 
 
-def remove_unused_lessons(lessons: list, target: str, rel_path: str) -> None:
+def remove_unused_lessons(
+    lessons: List[str], target: str, rel_path: str
+        ) -> None:
     """
     Remove all the directories in the given sequence except of the target.
 
@@ -102,7 +105,7 @@ def remove_unused_lessons(lessons: list, target: str, rel_path: str) -> None:
             shutil.rmtree(os.path.join(rel_path, folder))
 
 
-def rename_dirs(dirs: tuple, pattern: str, package: str) -> None:
+def rename_dirs(dirs: Tuple[str, ...], pattern: str, package: str) -> None:
     """
     Rename the given sequence of directories according to the pattern.
 

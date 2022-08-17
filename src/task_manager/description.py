@@ -1,6 +1,7 @@
 import os
 import logging
 import xml.etree.ElementTree
+from typing import Dict, List, Tuple, Optional
 
 import task_manager.utils as tu
 
@@ -9,8 +10,8 @@ from task_manager.text_processor import process_text
 
 def replace_descriptions(
         tree: xml.etree.ElementTree.ElementTree,
-        data: dict,
-        exercises: list,
+        data: Dict[str, Dict[str, Optional[str]]],
+        exercises: List[xml.etree.ElementTree.Element],
         package: str
 ) -> None:
     """
@@ -24,14 +25,33 @@ def replace_descriptions(
     :type exercises: list
     """
     for task_data, exercise in zip(data.items(), exercises):
-        process_description(task_data, exercise, package)
+        process_description(task_data, package)
+        remove_solution(exercise)
 
     tree.write("output_desc.xml", encoding="utf-8")
 
 
+def remove_solution(exercise: xml.etree.ElementTree.Element) -> None:
+    """
+    From the given tag remove the current text.
+
+    :param exercise: an xml element with task.
+    :type exercise: xml.etree.ElementTree.Element
+    """
+    try:
+        solution_tag = exercise.find("solution")
+
+    except Exception:
+        logging.warning(f"No childern element: {exercise}")
+    else:
+        if hasattr(solution_tag, "text"):
+            solution_tag.text = ""  # type: ignore
+        else:
+            logging.warning("Missing attribute 'text'.")
+
+
 def process_description(
-        task_data: tuple,
-        exercise: xml.etree.ElementTree.Element,
+        task_data: Tuple[str, Dict[str, Optional[str]]],
         package: str
         ) -> None:
     """
@@ -48,12 +68,12 @@ def process_description(
     :rtype: str
     """
     lesson = load_lesson_tasks(
-        tu.lessons.get(task_data[1]["lesson"], "nan_lesson")
+        tu.lessons.get(task_data[1]["lesson"], "nan_lesson")   # type: ignore
     )
     name = get_current_name(task_data[0], lesson)
 
-    if lesson != "nan_lesson" and name != "nan_task":
-        lesson_nr = get_current_lesson(task_data, tu.lessons)
+    if lesson != "nan_lesson" and name != "nan_task":          # type: ignore
+        lesson_nr = get_current_lesson(task_data, tu.lessons)  # type: ignore
         process_text(
             read_description(
                 package, name, lesson_nr
@@ -61,7 +81,7 @@ def process_description(
         )
 
 
-def load_lesson_tasks(lesson: str) -> dict:
+def load_lesson_tasks(lesson: str) -> Dict[str, str]:
     """
     Return an object with the name mapping for the specific lesson.
     """
@@ -76,7 +96,7 @@ def load_lesson_tasks(lesson: str) -> dict:
         return output
 
 
-def get_current_name(old_name: str, pattern: dict) -> str:
+def get_current_name(old_name: str, pattern: Dict[str, str]) -> str:
     """
     Return the current name of the task, based on the given pattern.
 
@@ -97,7 +117,10 @@ def get_current_name(old_name: str, pattern: dict) -> str:
     return pattern.get(old_name, "nan_task")
 
 
-def get_current_lesson(data: tuple, pattern: dict) -> str:
+def get_current_lesson(
+    data: Tuple[str, Dict[str, str]],
+    pattern: Dict[str, str]
+) -> str:
     """
     Return the lesson name of the task, based on the given pattern.
 
@@ -123,10 +146,10 @@ def get_current_lesson(data: tuple, pattern: dict) -> str:
     lesson01
     """
     _, attrib = data
-    return pattern.get(attrib.get("lesson"), "nan_lesson")
+    return pattern.get(attrib.get("lesson"), "nan_lesson")  # type: ignore
 
 
-def read_description(pack_path: str, name: str, lesson: str) -> list:
+def read_description(pack_path: str, name: str, lesson: str) -> List[str]:
     """
     Return the list that contents description of the certain task.
 
@@ -187,10 +210,5 @@ def write_description(
     XXXX
     """
     description_tag = selected_element.find(child)
-    description_tag.text = text
-    return description_tag.text
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+    description_tag.text = text  # type: ignore
+    return description_tag.text  # type: ignore

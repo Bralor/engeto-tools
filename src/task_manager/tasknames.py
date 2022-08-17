@@ -1,7 +1,10 @@
 import xml.etree.ElementTree
+from typing import List, Union, Dict, Tuple, Optional
 
 
-def get_all_tasks(root: xml.etree.ElementTree.Element, value: str) -> list:
+def get_all_tasks(
+    root: xml.etree.ElementTree.Element, value: str
+) -> List[xml.etree.ElementTree.Element]:
     """
     Return the list of all XML tags that have specific names.
 
@@ -29,7 +32,7 @@ def get_all_tasks(root: xml.etree.ElementTree.Element, value: str) -> list:
 def get_specific_elements(
         root: xml.etree.ElementTree.Element,
         xml_tag: str, xml_attr: str, attr_val: str
-        ) -> list:
+) -> List[xml.etree.ElementTree.Element]:
     """
     From the given root, return the list of elements that are matching given
     keyword arguments.
@@ -51,11 +54,14 @@ def get_specific_elements(
     return [
         element
         for element in root.iter(xml_tag)
-        if element.get(xml_attr).startswith(attr_val)
+        if element.get(xml_attr).startswith(attr_val)  # type: ignore
     ]
 
 
-def select_attr_value(elements: list, attr_name: str) -> list:
+def select_attr_value(
+    elements: List[xml.etree.ElementTree.Element],
+    attr_name: str
+) -> List[Union[str, None]]:
     """
     From the given list of elements, get the list of names.
 
@@ -91,7 +97,7 @@ def get_task_names(
         xml_attr: str,
         attr_val: str,
         target: str = "sourceDir"
-        ) -> list:
+        ) -> List[Union[str, None]]:
     """
     Return the list of all names from the given XML.
 
@@ -119,7 +125,9 @@ def get_task_names(
     return select_attr_value(elems, target)
 
 
-def create_task_data(task_paths: list) -> dict:
+def create_task_data(
+    task_paths: List[Union[str, None]]
+        ) -> Dict[str, Dict[str, Optional[str]]]:
     """
     Return the dictionary with the task names (keys) and the nested dictionaries
     with the attributes.
@@ -141,7 +149,7 @@ def create_task_data(task_paths: list) -> dict:
     return tasks
 
 
-def parse_name(path: str) -> tuple:
+def parse_name(path: Union[str, None]) -> Tuple[str, str, str]:
     """
     From the given name parse folder, lesson and task name.
 
@@ -152,7 +160,8 @@ def parse_name(path: str) -> tuple:
     ('bar', 'foo', 'fii')
     """
     try:
-        folder, lesson, name, _ = path.split("/")
+        if path:
+            folder, lesson, name, _ = path.split("/")
 
     except Exception:
         output = "", "", ""
@@ -162,7 +171,7 @@ def parse_name(path: str) -> tuple:
         return output
 
 
-def get_only_task_name(data: dict) -> tuple:
+def get_only_task_name(data: Dict[str, str]) -> Tuple[str, ...]:
     """
     Return only the tuple of names.
 
@@ -182,8 +191,3 @@ def get_only_task_name(data: dict) -> tuple:
     ('task1', 'task2')
     """
     return tuple(data.keys())
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()

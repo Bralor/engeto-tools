@@ -1,4 +1,5 @@
 import xml.etree.ElementTree
+from typing import List, Dict, Union
 
 import task_manager.utils as tu
 from task_manager.description import load_lesson_tasks
@@ -6,8 +7,8 @@ from task_manager.description import load_lesson_tasks
 
 def replace_attributes(
         tree: xml.etree.ElementTree.ElementTree,
-        exercises: list,
-        new_path: dict
+        exercises: List[xml.etree.ElementTree.Element],
+        new_path: Dict[str, Dict[str, str]]
         ) -> None:
     """
     Replace attributes in the given exercise elements.
@@ -23,7 +24,10 @@ def replace_attributes(
     tree.write("output_attr.xml", encoding="utf-8")
 
 
-def update_all(exercises: list, new_path: dict) -> None:
+def update_all(
+        exercises: List[xml.etree.ElementTree.Element],
+        new_path: Dict[str, Dict[str, str]]
+) -> None:
     """
     In the list of exercises, update the specific attribute with new value.
 
@@ -54,13 +58,14 @@ def update_all(exercises: list, new_path: dict) -> None:
     """
     for exercise in exercises:
         update_exercise(
-            exercise, new_path[exercise.attrib["name"]], "sourceDir",
-            "skeleton", "unit-tests", "description", "solution")
+            exercise, new_path[exercise.attrib["name"]],  # type: ignore
+            "sourceDir", "skeleton", "unit-tests", "description", "solution"
+        )
 
 
 def update_exercise(
         exercise: xml.etree.ElementTree.Element,
-        new_path: dict,
+        new_path: Dict[str, str],
         attr_name: str,
         *children
         ) -> None:
@@ -111,9 +116,9 @@ def update_exercise(
 
 
 def update_attribute(
-        task_element: xml.etree.ElementTree.Element,
+        task_element: Union[xml.etree.ElementTree.Element, None],
         attr_name: str,
-        attr_val: str
+        attr_val: Union[str, None]
         ) -> str:
     """
     Return a selected attribute with updated value.
@@ -136,17 +141,19 @@ def update_attribute(
     'Germany'
     """
     try:
-        task_element.attrib[attr_name] = attr_val
+        task_element.attrib[attr_name] = attr_val  # type: ignore
 
     except BaseException:
         output = "Cannot find the element"
     else:
-        output = task_element.attrib[attr_name]
+        output = task_element.attrib[attr_name] if task_element else ""
     finally:
         return output
 
 
-def collect_data(exercises: list) -> dict:
+def collect_data(
+    exercises: List[xml.etree.ElementTree.Element]
+        ) -> Dict[str, Dict[str, str]]:
     """
     From the given pool of exercises returns a object with names and attributes.
 
@@ -170,7 +177,9 @@ def collect_data(exercises: list) -> dict:
     }
 
 
-def collect_task_data(exercise: xml.etree.ElementTree.Element) -> dict:
+def collect_task_data(
+    exercise: xml.etree.ElementTree.Element
+        ) -> Dict[str, str]:
     """
     From the given task element 'exercise' return a dictionary with attributes.
 
@@ -201,7 +210,9 @@ def collect_task_data(exercise: xml.etree.ElementTree.Element) -> dict:
     return data
 
 
-def replace_values(data: dict) -> dict:
+def replace_values(
+    data: Dict[str, Dict[str, str]]
+        ) -> Dict[str, Dict[str, str]]:
     """
     Return an object with replaced values of the old attributes.
 
@@ -235,7 +246,3 @@ def replace_values(data: dict) -> dict:
                 )
     return data
 
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()

@@ -1,4 +1,7 @@
-def process_text(text: list) -> str:
+from typing import List, Tuple
+
+
+def process_text(text: List[str]) -> str:
     """
     Return the processed text.
 
@@ -18,7 +21,7 @@ def process_text(text: list) -> str:
     return join_text(replace_empty_strs(cleaned_txt))
 
 
-def select_boundaries(content: list, signal: str) -> list:
+def select_boundaries(content: List[str], signal: str) -> List[int]:
     """
     Return the beginning and the final index of the text.
 
@@ -42,7 +45,7 @@ def select_boundaries(content: list, signal: str) -> list:
     ]
 
 
-def modify_indexes(indexes: list) -> tuple:
+def modify_indexes(indexes: List[int]) -> Tuple[int, int]:
     """
     Modify and return the final numbers of possible boundaries.
 
@@ -58,7 +61,7 @@ def modify_indexes(indexes: list) -> tuple:
     return indexes[0] + 1, indexes[-1]
 
 
-def remove_backticks(seq: list, times: int = 1) -> list:
+def remove_backticks(seq: List[str], times: int = 1) -> List[str]:
     """
     Remove the backticks from the given sequence.
 
@@ -85,7 +88,7 @@ def remove_backticks(seq: list, times: int = 1) -> list:
     return seq
 
 
-def clean_newlines(seq: list) -> list:
+def clean_newlines(seq: List[str]) -> List[str]:
     """
     Return the list without a pending newline chars.
 
@@ -104,7 +107,7 @@ def clean_newlines(seq: list) -> list:
     ]
 
 
-def join_text(seq: list) -> str:
+def join_text(seq: List[str]) -> str:
     """
     Join the text with proper newlines.
 
@@ -120,7 +123,7 @@ def join_text(seq: list) -> str:
     return "\n".join(seq)
 
 
-def replace_empty_strs(seq: list) -> list:
+def replace_empty_strs(seq: List[str]) -> List[str]:
     """
     Add a newline where should be and return the complete list.
 
@@ -138,8 +141,3 @@ def replace_empty_strs(seq: list) -> list:
         else item
         for item in seq
     ]
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
