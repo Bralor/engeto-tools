@@ -13,7 +13,7 @@ from task_manager.attributes import replace_attributes
 from task_manager.attributes import replace_values, collect_data
 
 from task_manager.cleaner import remove_unused_lessons
-from task_manager.cleaner import rename_dirs, move_content
+from task_manager.cleaner import rename_dirs, move_content, move_tests
 
 
 def task_desc_processor(engeto: str, task_p: str) -> None:
@@ -68,6 +68,12 @@ def task_content_processor(
         )
 
         move_content(
+            os.path.join(engeto_repo, "exercises", lesson),
+            engeto_repo,
+            os.path.join("../engeto_tasks/tasks", lesson_num)
+        )
+
+        move_tests(
             os.path.join(engeto_repo, "exercises", lesson),
             engeto_repo,
             os.path.join("../engeto_tasks/tasks", lesson_num)
