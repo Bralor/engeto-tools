@@ -158,6 +158,33 @@ def move_content(lesson_path: str, engeto_repo: str, package: str) -> None:
     add_missing_tasks(lesson_path, package)
 
 
+def move_tests(lesson_path: str, engeto_repo: str, package: str) -> None:
+    """
+    Move the tests of the task from the package to the repository.
+
+    :param lesson_path: a relative path of exercises
+    :type lesson_path: str
+    :param engeto_repo: a relative path to the repository.
+    :type engeto_repo: str
+    :param package: a relative path to the package.
+    :type package: str
+    """
+
+    lesson = os.path.basename(lesson_path)
+
+    for folder in os.listdir(lesson_path):
+        enge_tests = os.path.join(engeto_repo, "exercises", lesson, folder)
+        pack_tests = os.path.join(package, folder)
+
+        if not os.path.exists(enge_tests) \
+                or not os.path.exists(pack_tests):
+            continue
+        shutil.copyfile(
+            os.path.join(pack_tests, f"test_{folder}.py"),
+            os.path.join(enge_tests, "tests.py")
+        )
+
+
 def add_missing_tasks(engeto_tasks: str, package_tasks: str) -> None:
     """
     Create a task folder with content if the task is not part of current
