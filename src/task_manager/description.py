@@ -176,7 +176,7 @@ def read_description(pack_path: str, name: str, lesson: str) -> List[str]:
             content = md.readlines()
 
     except FileNotFoundError:
-        logging.warning(f"Path does not exist: {lesson}/{name}/README.md")
+        logging.warning(f"Path does not exist: tasks/{lesson}/{name}/README.md")
         output = []
     else:
         output = content
