@@ -10,16 +10,16 @@ def test_update_exercise_with_proper_elements():
         'Převaděč jednotek':
         {
             'perex': 'nan_sourceDir',
-            'skeleton': 'exercises/L01/unit_converter/skeleton',
+            'exercise-folder': 'exercises/L01/unit_converter/exercise-folder',
             'unit-tests': 'nan_sourceDir',
             'solution': 'exercises/L01/unit_converter/solution',
-            'description': 'exercises/L01/unit_converter/skeleton'
+            'description': 'exercises/L01/unit_converter/exercise-folder'
         }
     }
     exercises = [exercise for exercise in root.iter('exercise')]
     ta.update_exercise(
         exercises[0], out[exercises[0].attrib['name']],
-        'sourceDir', 'skeleton', 'unit-tests'
+        'sourceDir', 'exercise-folder', 'unit-tests'
     )
     assert exercises[0].find(
         'tests'
@@ -42,8 +42,8 @@ def test_if_update_attribute_returns_expected_data_type():
     root = tree.getroot()
     exercises = [exercise for exercise in root.iter('exercise')]
     result = ta.update_attribute(
-        exercises[0].find('skeleton'),
-        'sourceDir', 'exercises/L01/unit_converter/skeleton'
+        exercises[0].find('solution'),
+        'sourceDir', 'exercises/L01/unit_converter/solution'
     )
     assert isinstance(result, str)
 
@@ -97,10 +97,10 @@ def test_replace_values_returns_expected_result():
         'Převaděč jednotek':
         {
             'perex': 'nan_sourceDir',
-            'skeleton': 'exercises/L01/unit_converter/skeleton',
+            'exercise-folder': 'exercises/L01/unit_converter/exercise-folder',
             'unit-tests': 'nan_sourceDir',
             'solution': 'exercises/L01/unit_converter/solution',
-            'description': 'exercises/L01/unit_converter/skeleton'
+            'description': 'exercises/L01/unit_converter/exercise-folder'
         }
     }
     assert ta.replace_values(
@@ -112,10 +112,10 @@ def test_if_replace_values_returns_expected_data_type():
         'Převaděč jednotek':
         {
             'perex': 'nan_sourceDir',
-            'skeleton': 'exercises/L01/unit_converter/skeleton',
+            'exercise-folder': 'exercises/L01/unit_converter/exercise-folder',
             'unit-tests': 'nan_sourceDir',
             'solution': 'exercises/L01/unit_converter/solution',
-            'description': 'exercises/L01/unit_converter/skeleton'
+            'description': 'exercises/L01/unit_converter/exercise-folder'
         }
     }
     result = ta.replace_values(out)
